@@ -22,4 +22,22 @@ public class ProveedorService  {
     public List<Proveedor> getAll() {
         return this.proveedorRepository.findAll();
     }
+
+    public Proveedor crearProveedor(Proveedor nuevoProveedor) {
+        return proveedorRepository.save(nuevoProveedor);
+    }
+
+    public Proveedor actualizarProveedor(Long id, Proveedor proveedorActualizado) {
+        return proveedorRepository.findById(id)
+                .map(proveedor -> {
+                    proveedor.setNombre(proveedorActualizado.getNombre());
+                    proveedor.setFechaAlta(proveedorActualizado.getFechaAlta());
+                    proveedor.setClientId(proveedorActualizado.getClientId());
+                    return proveedorRepository.save(proveedor);
+                })
+                .orElseThrow(() -> new RuntimeException("Proveedor no encontrado con id: " + id));
+    }
+
+
+
 }

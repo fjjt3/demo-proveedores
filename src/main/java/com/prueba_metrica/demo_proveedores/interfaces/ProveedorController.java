@@ -2,6 +2,7 @@ package com.prueba_metrica.demo_proveedores.interfaces;
 
 import com.prueba_metrica.demo_proveedores.domain.ProveedorService;
 import com.prueba_metrica.demo_proveedores.infrastructure.entity.Proveedor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,5 +27,21 @@ public class ProveedorController {
     @GetMapping("/{idCliente}")
     public List<Proveedor> obtenerProveedoresPorCliente(@PathVariable Long idCliente) {
         return this.proveedorService.obtenerProveedoresPorCliente(idCliente);
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<Proveedor> crearProveedor(@RequestBody Proveedor nuevoProveedor) {
+        Proveedor proveedor = proveedorService.crearProveedor(nuevoProveedor);
+        return ResponseEntity.status(HttpStatus.CREATED).body(proveedor);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Proveedor> actualizarProveedor(@PathVariable Long id, @RequestBody Proveedor proveedorActualizado) {
+        try {
+            Proveedor proveedor = proveedorService.actualizarProveedor(id, proveedorActualizado);
+            return ResponseEntity.ok(proveedor);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
