@@ -38,6 +38,16 @@ public class ProveedorService  {
                 .orElseThrow(() -> new RuntimeException("Proveedor no encontrado con id: " + id));
     }
 
+    public void eliminarProveedor(Long id) {
+        if (proveedorRepository.existsById(id)) {
+            proveedorRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Proveedor no encontrado con id: " + id);
+        }
+    }
+
+
+
 
 
 }

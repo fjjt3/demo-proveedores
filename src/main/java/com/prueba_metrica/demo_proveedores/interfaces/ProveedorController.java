@@ -44,4 +44,16 @@ public class ProveedorController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarProveedor(@PathVariable Long id) {
+        try {
+            proveedorService.eliminarProveedor(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 }
