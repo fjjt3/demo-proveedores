@@ -22,4 +22,6 @@ public class ProveedorService  {
     public List<Proveedor> getAll() {
         return this.proveedorRepository.findAll();
     }
+
+    public Proveedor crearProveedor (Proveedor proveedor){return this.proveedorRepository.save(proveedor);}
 }

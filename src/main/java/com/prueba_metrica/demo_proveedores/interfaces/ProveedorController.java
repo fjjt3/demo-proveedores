@@ -2,6 +2,7 @@ package com.prueba_metrica.demo_proveedores.interfaces;
 
 import com.prueba_metrica.demo_proveedores.domain.ProveedorService;
 import com.prueba_metrica.demo_proveedores.infrastructure.entity.Proveedor;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,5 +27,10 @@ public class ProveedorController {
     @GetMapping("/{idCliente}")
     public List<Proveedor> obtenerProveedoresPorCliente(@PathVariable Long idCliente) {
         return this.proveedorService.obtenerProveedoresPorCliente(idCliente);
+    }
+
+    @PostMapping
+    public ResponseEntity<Proveedor> crearProveedor(@Valid @RequestBody Proveedor proveedor) {
+        return ResponseEntity.status(201).body(proveedorService.crearProveedor(proveedor));
     }
 }
