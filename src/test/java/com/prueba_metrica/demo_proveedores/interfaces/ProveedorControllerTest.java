@@ -8,13 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -44,6 +45,24 @@ class ProveedorControllerTest {
                 .andExpect(jsonPath("$.length()").value(2))
                 .andExpect(jsonPath("$[0].nombre").value("Proveedor A"))
                 .andExpect(jsonPath("$[1].nombre").value("Proveedor B"));
+    }
+
+    @Test
+    void shouldCreateProveedor() throws Exception{
+
+        Proveedor proveedor = new Proveedor(1L,"Test Proveedor", LocalDate.now(), 101L);
+        Proveedor savedProveedor = new Proveedor(1L, "Test Proveedor", LocalDate.now(), 101L);
+
+
+        mockMvc.perform(post("/api/proveedores")
+                .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"nombre\":\"Test Proveedor\",\"fechaAlta\":\"" + LocalDate.now() + "\",\"clientId\":101}"))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.nombre").value("Test Proveedor"))
+                .andExpect(jsonPath("$.fechaAlta").value(LocalDate.now()))
+                .andExpect(jsonPath("$.clientId").value(101));
+
     }
 }
 
