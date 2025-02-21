@@ -14,8 +14,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProveedorServiceTest {
@@ -45,7 +44,7 @@ class ProveedorServiceTest {
     }
 
     @Test
-    void shouldCrerateProveedor(){
+    void shouldCreateProveedor(){
 
         // GIVEN
         Proveedor proveedor3= new Proveedor(1l, "Pepsi", LocalDate.now(), 8L);
@@ -62,9 +61,14 @@ class ProveedorServiceTest {
         assertEquals(savedProveedor.getNombre(), result.getNombre());
         assertEquals(savedProveedor.getClientId(), result.getClientId());
         verify(proveedorRepository).save(proveedor3);
+    }
 
+    @Test
+    void shouldDeleteProveedor(){
+        doNothing().when(proveedorRepository).deleteById(1L);
 
+        proveedorRepository.deleteById(1L);
 
-
+        verify(proveedorRepository).deleteById(1L);
     }
 }

@@ -29,6 +29,18 @@ class ProveedorRepositoryTest {
     }
 
     @Test
+    void shouldSaveProduct(){
+        Proveedor proveedor1 = new Proveedor(1L, "Proveedor A", LocalDate.now(), 101L);
+        Proveedor savedProveedor = proveedorRepository.save(proveedor1);
+
+        assertNotNull(savedProveedor.getId());
+        assertEquals(proveedor1.getId(),savedProveedor.getId());
+        assertEquals(proveedor1.getNombre(),savedProveedor.getNombre());
+        assertEquals(proveedor1.getFechaAlta(),savedProveedor.getFechaAlta());
+        assertEquals(proveedor1.getClientId(),savedProveedor.getClientId());
+    }
+
+    @Test
     void shouldDeleteProveedor(){
         Proveedor proveedor1 = new Proveedor(1L, "Proveedor A", LocalDate.now(), 101L);
         Proveedor savedProveedor = proveedorRepository.save(proveedor1);

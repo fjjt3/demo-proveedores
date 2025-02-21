@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -63,6 +64,13 @@ class ProveedorControllerTest {
                 .andExpect(jsonPath("$.fechaAlta").value(LocalDate.now()))
                 .andExpect(jsonPath("$.clientId").value(101));
 
+    }
+
+    @Test
+    void shouldDeleteProduct() throws Exception{
+        mockMvc.perform(delete("/proveedores/1")).andExpect(status().isNoContent());
+
+        verify(proveedorService).borrarProveedor(1L);
     }
 }
 

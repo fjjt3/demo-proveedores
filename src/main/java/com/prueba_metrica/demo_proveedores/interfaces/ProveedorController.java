@@ -36,7 +36,7 @@ public class ProveedorController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> borrarProducto(@PathVariable Long id){
-        proveedorService.borrarProducto(id);
+        proveedorService.borrarProveedor(id);
         return ResponseEntity.noContent().build();
     }
 }
