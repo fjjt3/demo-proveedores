@@ -24,4 +24,8 @@ public class ProveedorService  {
     }
 
     public Proveedor crearProveedor (Proveedor proveedor){return this.proveedorRepository.save(proveedor);}
+
+    public void borrarProducto(Long id){
+        proveedorRepository.deleteById(id);
+    }
 }

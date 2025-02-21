@@ -46,10 +46,15 @@ class ProveedorServiceTest {
 
     @Test
     void shouldCrerateProveedor(){
+
+        // GIVEN
         Proveedor proveedor3= new Proveedor(1l, "Pepsi", LocalDate.now(), 8L);
         Proveedor savedProveedor = new Proveedor(1L, "Pepsi",LocalDate.now(), 8L );
+
+        // WHEN
         when(proveedorRepository.save(any(Proveedor.class))).thenReturn(savedProveedor);
 
+        // THEN
         Proveedor result =  proveedorService.crearProveedor(proveedor3);
 
         assertNotNull(result);

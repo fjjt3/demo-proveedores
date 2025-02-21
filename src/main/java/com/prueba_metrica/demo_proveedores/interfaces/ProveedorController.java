@@ -33,4 +33,10 @@ public class ProveedorController {
     public ResponseEntity<Proveedor> crearProveedor(@Valid @RequestBody Proveedor proveedor) {
         return ResponseEntity.status(201).body(proveedorService.crearProveedor(proveedor));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> borrarProducto(@PathVariable Long id){
+        proveedorService.borrarProducto(id);
+        return ResponseEntity.noContent().build();
+    }
 }
