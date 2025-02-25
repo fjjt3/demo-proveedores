@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -48,6 +49,20 @@ class ProveedorControllerTest {
                 .andExpect(jsonPath("$[1].nombre").value("Proveedor B"));
     }
 
+    @Test
+    void shouldReturnProveedorById() throws Exception {
+        // GIVEN
+        Proveedor proveedor1 = new Proveedor(1L, "Proveedor A", LocalDate.now(), 101L);
+
+        // WHEN
+        when(proveedorService.obtenerProveedoresPorId(1L)).thenReturn(Optional.of(proveedor1));
+
+        // THEN
+        mockMvc.perform(get("/proveedores/1"))
+                .andExpect(status().isOk()) //  status  200 OK
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.nombre").value("Proveedor A")); 
+    }
     @Test
     void shouldCreateProveedor() throws Exception{
 

@@ -29,6 +29,17 @@ class ProveedorRepositoryTest {
     }
 
     @Test
+    void shouldFindProveedorById() {
+
+        // WHEN
+        Optional<Proveedor> result = proveedorRepository.findById(5L);
+
+        // THEN
+        assertThat(result).isPresent();
+        assertThat(result.get().getId()).isEqualTo(5L);
+    }
+
+    @Test
     void shouldSaveProduct(){
         Proveedor proveedor1 = new Proveedor(1L, "Proveedor A", LocalDate.now(), 101L);
         Proveedor savedProveedor = proveedorRepository.save(proveedor1);

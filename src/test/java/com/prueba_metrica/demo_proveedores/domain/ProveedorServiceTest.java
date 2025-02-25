@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -41,6 +42,24 @@ class ProveedorServiceTest {
 
         assertThat(result).hasSize(2);
         assertThat(result).extracting("nombre").containsExactlyInAnyOrder("Proveedor A", "Proveedor B");
+    }
+
+    @Test
+    void shouldReturnProveedoresById() {
+
+        // GIVEN
+        Proveedor proveedor1 = new Proveedor(1L, "Proveedor A", LocalDate.now(), 101L);
+
+        // WHEN
+        when(proveedorRepository.findById(101L)).thenReturn(Optional.of(proveedor1));
+
+        // WHEN
+        Optional<Proveedor> result = proveedorRepository.findById(101L);
+
+        // THEN
+        assertThat(result).isPresent();
+        assertThat(result.get().getId()).isEqualTo(1L);
+        assertThat(result.get().getNombre()).isEqualTo("Proveedor A");
     }
 
     @Test
