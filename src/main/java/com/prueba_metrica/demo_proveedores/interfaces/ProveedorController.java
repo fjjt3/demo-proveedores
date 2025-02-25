@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/proveedores")
@@ -24,9 +24,14 @@ public class ProveedorController {
         return this.proveedorService.getAll();
     }
 
-    @GetMapping("/{idCliente}")
+    @GetMapping("/cliente/{idCliente}")
     public List<Proveedor> obtenerProveedoresPorCliente(@PathVariable Long idCliente) {
         return this.proveedorService.obtenerProveedoresPorCliente(idCliente);
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Proveedor> obtenerProveedoresPorId(@PathVariable Long id) {
+        return this.proveedorService.obtenerProveedoresPorId(id);
     }
 
     @PostMapping

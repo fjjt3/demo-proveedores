@@ -5,6 +5,7 @@ import com.prueba_metrica.demo_proveedores.infrastructure.ProveedorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProveedorService  {
@@ -17,6 +18,10 @@ public class ProveedorService  {
 
     public List<Proveedor> obtenerProveedoresPorCliente(Long idCliente) {
         return this.proveedorRepository.findByClientId(idCliente);
+    }
+
+    public Optional<Proveedor> obtenerProveedoresPorId(Long id) {
+        return this.proveedorRepository.findById(id);
     }
 
     public List<Proveedor> getAll() {
